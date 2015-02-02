@@ -1,0 +1,16 @@
+machine:
+  services:
+    - docker
+
+test:
+  override:
+    - make REGISTRY="quay.io/mojotech" TAG="${CIRCLE_SHA1:0:7}":
+        timeout: 360
+
+deployment:
+  production:
+    branch: master
+    commands:
+      - docker login -e="." -u="$QUAY_USER" -p "$QUAY_PASS" "$QUAY_HOST"
+      - make REGISTRY="quay.io/mojotech" TAG="${CIRCLE_SHA1:0:7}" push:
+          timeout: 360
