@@ -1,24 +1,24 @@
 # docker-images
 
-This repo contains scripts to build some useful docker base images. The are available for use at [quay.io](quay.io).
+This repo contains scripts to build some useful docker base images. The are available for use at [quay.io](http://quay.io).
 
 ## Images 
 
-### [debian](quay.io/mojotech/debian)
+### [debian](http://quay.io/mojotech/debian)
 A debian wheezy base image with the mojotech apt repository key.
 
 
-### [node](quay.io/mojotech/node)
+### [node](http://quay.io/mojotech/node)
 The debian base image plus node.js, npm, and the build tools necessary to install most npm packages (even those requiring native extensions).
 
 
-### [clojure](quay.io/mojotech/clojure)
+### [clojure](http://quay.io/mojotech/clojure)
 The debian base image plus java and leiningen. 
 
-### [groovy](quay.io/mojotech/groovy)
+### [groovy](http://quay.io/mojotech/groovy)
 The debian base image plus java and gradle. 
 
-### [python](quay.io/mojotech/python)
+### [python](http://quay.io/mojotech/python)
 The debian base image plus python, pip, and virtualenv. 
 
 
