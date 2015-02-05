@@ -1,11 +1,8 @@
 FROM mojotech/debian:latest
 
-RUN apt-get install -y --no-install-recommends \
-      build-essential \
-      git \
-      lsof \
+RUN apt-get install -y --no-install-recommends -t local\
       nodejs-legacy \
-      npm/local \
+      npm \
       python
 
 ENV NODE_PATH /usr/local/lib/node_modules
