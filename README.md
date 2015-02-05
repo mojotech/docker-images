@@ -15,6 +15,13 @@ The debian base image plus node.js, npm, and the build tools necessary to instal
 ### [clojure](quay.io/mojotech/clojure)
 The debian base image plus java and leiningen. 
 
+### [groovy](quay.io/mojotech/groovy)
+The debian base image plus java and gradle. 
+
+### [python](quay.io/mojotech/python)
+The debian base image plus python, pip, and virtualenv. 
+
+
 ## Building
 
 Use `make <name>` to build an image. For example, to build the clojure image:
