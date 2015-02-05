@@ -11,6 +11,7 @@ RUN apt-get install -y \
   ca-certificates \
   curl \
   git \
+  locales \
   lsof \
   procps \
   vim-tiny
