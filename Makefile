@@ -1,7 +1,7 @@
 
 TAG := latest
 REGISTRY := mojotech
-IMAGES := debian node clojure groovy
+IMAGES := debian node clojure groovy python
 
 NO_CACHE := false
 
