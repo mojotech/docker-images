@@ -1,19 +1,27 @@
 
-TAG := latest
-REGISTRY := mojotech
-IMAGES := debian node clojure groovy python
+TAG ?= latest
+REGISTRY ?= quay.io/mojotech
 
-NO_CACHE := false
+IMAGES := debian node clojure groovy python riemann datomic
 
 .PHONY: $(IMAGES) push push-% clean clean-%
 
 all: $(IMAGES)
 
 debian:
-	docker build --no-cache=$(NO_CACHE) --force-rm -t $(REGISTRY)/debian:$(TAG) debian
+	docker build --force-rm -t $(REGISTRY)/debian:$(TAG) debian
 
-$(filter-out debian,$(IMAGES)): debian
-	sed 's|^FROM.*|FROM $(REGISTRY)/debian:$(TAG)|' $@/Dockerfile | docker build --no-cache=$(NO_CACHE) --force-rm -t $(REGISTRY)/$@:$(TAG) -
+node clojure groovy python: debian
+	rm -rf $@.build
+	cp -rf $@ $@.build
+	sed 's|^FROM.*|FROM $(REGISTRY)/$<:$(TAG)|' $@/Dockerfile > $@.build/Dockerfile
+	docker build --force-rm -t $(REGISTRY)/$@:$(TAG) $@.build
+
+riemann datomic: clojure
+	rm -rf $@.build
+	cp -rf $@ $@.build
+	sed 's|^FROM.*|FROM $(REGISTRY)/clojure:$(TAG)|' $@/Dockerfile > $@.build/Dockerfile
+	docker build --force-rm -t $(REGISTRY)/$@:$(TAG) $@.build
 
 push: $(IMAGES:%=push-%)
 push-%:
@@ -21,4 +29,5 @@ push-%:
 
 clean: $(IMAGES:%=clean-%)
 clean-%:
+	-rm -rf $(wildcard *.build)
 	-docker rmi -f $(REGISTRY)/$*:$(TAG)
